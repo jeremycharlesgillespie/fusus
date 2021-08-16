@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  dev-web:
+    build:
+      context: ./fusus
+      dockerfile: Dockerfile.dev
+    command: gunicorn fusus.wsgi:application --bind 0.0.0.0:8081 --workers 2 --threads 2 --worker-class gevent
+    expose:
+      - 8081
+    env_file:
+      - ./.env.dev
+    networks:
+      - dev
+
+  dev-nginx:
+    build: nginx_dev
+    ports:
+      - 8081:80
+    depends_on:
+      - dev-web
+    networks:
+      - dev
+
+  dev-db:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=fusus_db_user
+      - POSTGRES_PASSWORD=fusion
+      - POSTGRES_DB=fusus_db
+    networks:
+      - dev
+
+networks:
+  dev:
+
+volumes:
+  postgres_data_dev:

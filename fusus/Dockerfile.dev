@@ -1,0 +1,68 @@
+###########
+# BUILDER #
+###########
+
+# pull official base image
+FROM python:3.9-buster as builder
+# set work directory
+WORKDIR /usr/src/fusus
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN apt-get update
+RUN apt-get install vim -y
+
+# lint
+RUN pip install --upgrade pip
+RUN pip install flake8
+COPY . .
+# RUN flake8 --ignore=E501,F401 .
+
+# install dependencies
+COPY ./requirements.txt .
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/fusus/wheels -r requirements.txt
+
+
+#########
+# FINAL #
+#########
+
+# pull official base image
+FROM python:3.9-buster
+
+# create directory for the app user
+RUN mkdir -p /home/app
+
+# create the app user
+RUN adduser app
+
+# create the appropriate directories
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+RUN mkdir $APP_HOME
+RUN mkdir /home/app/temp/
+RUN chmod +666 /home/app/temp/
+WORKDIR $APP_HOME
+
+# install dependencies
+#RUN apk update && apk add libpq
+COPY --from=builder /usr/src/fusus/wheels /wheels
+COPY --from=builder /usr/src/fusus/requirements.txt .
+RUN pip install --no-cache /wheels/*
+
+# copy entrypoint.dev.sh
+COPY ./entrypoint.dev.sh $APP_HOME
+
+# copy project
+COPY . $APP_HOME
+
+# chown all the files to the app user
+RUN chown -R app:app $APP_HOME
+
+# change to the app user
+USER app
+
+# run entrypoint.dev.sh
+ENTRYPOINT ["/home/app/web/entrypoint.dev.sh"]

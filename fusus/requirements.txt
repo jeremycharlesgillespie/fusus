@@ -1,0 +1,12 @@
+cryptography
+Django
+djangorestframework
+psycopg2-binary
+pytz
+sqlparse
+fabric
+gunicorn
+asgiref
+black
+gevent
+requests
