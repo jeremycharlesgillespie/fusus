@@ -9,7 +9,7 @@ Next run:
 ```
 make setupdev
 ```
-This will run `makemigrations`, `migrate`, and create the admin user that is defined in the .env.dev folder.
+This will run `makemigrations`, `migrate`, `collectstatic`, and create the superuser account that is defined in the .env.dev folder.
 
 At this point the server is up and running and can be logged into with admin:admin. To test the API, use the associated 
 Postman file or test independently.
