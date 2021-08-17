@@ -6,6 +6,8 @@ services:
       context: ./fusus
       dockerfile: Dockerfile.prod
     command: gunicorn fusus.wsgi:application --bind 0.0.0.0:8081 --workers 2 --threads 2 --worker-class gevent
+    volumes:
+      - static_volume:/home/app/web/staticfiles
     expose:
       - 8081
     env_file:
@@ -21,6 +23,8 @@ services:
       - prod-web
     networks:
       - prod
+    volumes:
+      - static_volume:/home/app/web/staticfiles
 
   prod-db:
     image: postgres:12.0-alpine
@@ -38,3 +42,4 @@ networks:
 
 volumes:
   postgres_data:
+  static_volume:
