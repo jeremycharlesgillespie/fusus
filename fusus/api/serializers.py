@@ -44,7 +44,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ('id', 'name', 'phone', 'email', 'birthdate', 'user')
 
 class UserSerializer(serializers.ModelSerializer):
     """This serializes a django user object.
