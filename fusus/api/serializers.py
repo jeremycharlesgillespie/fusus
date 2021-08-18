@@ -27,6 +27,16 @@ class OrganizationSerializer(serializers.ModelSerializer):
         model = Organization
         fields = '__all__'
 
+
+class UserSerializer(serializers.ModelSerializer):
+    """This serializes a django user object.
+    """
+
+    class Meta:
+        model = User
+        exclude = ['password', 'is_staff', 'is_active', 'user_permissions', 'is_superuser']
+
+
 class ProfileSerializer(serializers.ModelSerializer):
     """This serializes a profile object.
     """
