@@ -46,13 +46,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ('id', 'name', 'phone', 'email', 'birthdate', 'user')
 
-class UserSerializer(serializers.ModelSerializer):
-    """This serializes a django user object.
-    """
-
-    class Meta:
-        model = User
-        exclude = ['password', 'is_staff', 'is_active', 'user_permissions', 'is_superuser']
 
 class GetUserByIDSerializer(serializers.Serializer):
     """This is for the 'users/<int:id>' endpoint.
