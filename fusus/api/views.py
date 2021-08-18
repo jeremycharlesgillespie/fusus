@@ -25,6 +25,20 @@ class GetUserByID(APIView):
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)
 
+    def patch(self, request, id):
+        """Update user information for the user_id if request user is 'Administrator' of his organization.
+        Or request user is user_id.
+        """
+        api_user = request.user
+        # validate user/admin
+        if api_user.id == id or api_user.is_superuser:
+            #TODO READ IN THE ACCOUNT DETAILS, MAKE THE CHANGES
+            return Response({"result": "Account updated successfully."})
+        else:
+            return Response({"result": "You are not authorized to change this account."},
+                            status=status.HTTP_403_FORBIDDEN)
+
+
 class GetUsers(APIView):
     permission_classes = [IsAuthenticated]
 
