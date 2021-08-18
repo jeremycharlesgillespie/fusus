@@ -4,8 +4,10 @@ from django.contrib.auth.models import User
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
+
 class EmailTokenObtainSerializer(TokenObtainPairSerializer):
     username_field = User.EMAIL_FIELD
+
 
 class EmailTokenObtainPairSerializer(EmailTokenObtainSerializer):
     def get_tokens_for_user(user):
@@ -15,6 +17,7 @@ class EmailTokenObtainPairSerializer(EmailTokenObtainSerializer):
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }
+
 
 class OrganizationSerializer(serializers.ModelSerializer):
     """This serializes a complete Organization object.
