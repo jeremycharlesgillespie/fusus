@@ -8,7 +8,6 @@ from rest_framework_simplejwt.views import (
 app_name = "Fusus API"
 
 urlpatterns = [
-    path('test/', views.Test.as_view(), name='api-test'),
     path('users/<int:id>/', views.GetUserByID.as_view(), name='api-get_user_by_id'),
     path('users/', views.GetUsers.as_view(), name='api-get_user_by_id'),
     path('auth/login/', EmailTokenObtainPairView.as_view(), name='token_obtain_pair'),
