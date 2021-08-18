@@ -40,6 +40,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     """This serializes a profile object.
     """
+    user = UserSerializer(User)
 
     class Meta:
         model = Profile
