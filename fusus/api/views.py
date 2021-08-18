@@ -1,6 +1,7 @@
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -12,6 +13,7 @@ from api.models import Organization, Profile
 class EmailTokenObtainPairView(TokenObtainPairView):
     permission_classes = [permissions.AllowAny]
     serializer_class = EmailTokenObtainPairSerializer
+
 
 class GetUserByID(APIView):
     permission_classes = [IsAuthenticated]
