@@ -12,6 +12,8 @@ class Organization(models.Model):
     phone = models.CharField(max_length=20)  # Setting max_length to 20 to allow for international numbers.
     address = models.CharField(max_length=255)  # Ideally this would be broken into St Address 1, St Address 2, City,
     # State, Zip, etc.
+    def __str__(self):
+        return self.name
 
 
 class Profile(models.Model):
