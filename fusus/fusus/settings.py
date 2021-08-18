@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 DEBUG = True
+from datetime import timedelta
 import os
 
 LOGIN_REDIRECT_URL = '/'
@@ -145,9 +146,11 @@ REST_FRAMEWORK = {
     ),
 
 }
+ACCESS_TOKEN_DELTA = timedelta(days=1)
 SIMPLE_JWT = {
     'USER_ID_FIELD': 'email',  # model property to attempt claims for
     'USER_ID_CLAIM': 'user_id',  # actual keyword in token data
+    'ACCESS_TOKEN_LIFETIME': ACCESS_TOKEN_DELTA
 }
 
 # Static files (CSS, JavaScript, Images)
