@@ -52,5 +52,3 @@ class GetUserByIDSerializer(serializers.Serializer):
     """
     organization = OrganizationSerializer(required=True)
     user = UserSerializer(required=True)
-
-
