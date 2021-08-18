@@ -142,7 +142,12 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-    ]
+    ),
+
+}
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'email',  # model property to attempt claims for
+    'USER_ID_CLAIM': 'user_id',  # actual keyword in token data
 }
 
 # Static files (CSS, JavaScript, Images)
