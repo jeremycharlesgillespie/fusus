@@ -20,8 +20,8 @@ class Profile(models.Model):
     """
     This class represents the User object in the database.
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     # id <-This is created by Django as the primary key, nothing to add here.
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, blank=True)  # Setting max_length to 50 to allow for First+Middle+Last names. Ideally
     # this would be separate fields.
     phone = models.CharField(max_length=20, blank=True)  # Setting max_length to 20 to allow for international numbers.
